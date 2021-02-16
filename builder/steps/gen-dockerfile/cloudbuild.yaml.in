@@ -1,0 +1,13 @@
+# Cloud Builder pipeline
+# https://cloud.google.com/cloud-build/docs/overview
+
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ['build', '--tag=${IMAGE}', '--no-cache=true', '.']
+  id: BUILD
+- name: gcr.io/gcp-runtimes/container-structure-test
+  args: ['test', '--image', '${IMAGE}',
+  '-v', 'DEBUG', '--config', '/workspace/test_config.yaml']
+  id: STRUCTURE_TEST
+
+images: ['${IMAGE}']

@@ -1,0 +1,71 @@
+schemaVersion: "1.0.0"
+commandTests:
+- name: 'Execution Check'
+  # Create a directory that contains an app.yaml and server.js file
+  # that will be used to generate a Dockerfile and .dockerignore file.
+  setup: [['mkdir', '/tmp/gen_dockerfile_test_dir'],
+          ['sh', '-c', 'echo "env: flex" > /tmp/gen_dockerfile_test_dir/app.yaml'],
+          ['sh', '-c', 'echo "runtime: nodejs" >> /tmp/gen_dockerfile_test_dir/app.yaml'],
+          ['touch', '/tmp/gen_dockerfile_test_dir/server.js']]
+  command: ['node', '/opt/nodejs-runtime-builder/build/src/main.js',
+            '--app-dir', '/tmp/gen_dockerfile_test_dir',
+            '--runtime-image', 'some-image']
+  # Remove each file separately to ensure the directory has the
+  # expected files in it.
+  teardown: [['rm', '/tmp/gen_dockerfile_test_dir/app.yaml'],
+            ['rm', '/tmp/gen_dockerfile_test_dir/server.js'],
+            ['rm', '/tmp/gen_dockerfile_test_dir/Dockerfile'],
+            ['rm', '/tmp/gen_dockerfile_test_dir/.dockerignore'],
+            ['rmdir', '/tmp/gen_dockerfile_test_dir']]
+  exitCode: 0
+
+fileExistenceTests:
+- name: 'build'
+  path: '/opt/nodejs-runtime-builder/build'
+  permissions: 'drwxr-xr-x'
+  shouldExist: true
+
+- name: 'build/src'
+  path: '/opt/nodejs-runtime-builder/build/src'
+  permissions: 'drwxr-xr-x'
+  shouldExist: true
+
+- name: 'build/src/detect_setup.js'
+  path: '/opt/nodejs-runtime-builder/build/src/detect_setup.js'
+  permissions: '-rw-r--r--'
+  shouldExist: true
+
+- name: 'build/src/fsview.js'
+  path: '/opt/nodejs-runtime-builder/build/src/fsview.js'
+  permissions: '-rw-r--r--'
+  shouldExist: true
+
+- name: 'build/src/generate_files.js'
+  path: '/opt/nodejs-runtime-builder/build/src/generate_files.js'
+  permissions: '-rw-r--r--'
+  shouldExist: true
+
+- name: 'build/src/logger.js'
+  path: '/opt/nodejs-runtime-builder/build/src/logger.js'
+  permissions: '-rw-r--r--'
+  shouldExist: true
+
+- name: 'build/src/main.js'
+  path: '/opt/nodejs-runtime-builder/build/src/main.js'
+  permissions: '-rw-r--r--'
+  shouldExist: true
+
+- name: 'build/data'
+  path: '/opt/nodejs-runtime-builder/build/data'
+  permissions: 'drwxr-xr-x'
+  shouldExist: true
+
+- name: 'build/data/Dockerfile.txt'
+  path: '/opt/nodejs-runtime-builder/build/data/Dockerfile.txt'
+  permissions: '-rw-r--r--'
+  shouldExist: true
+
+- name: 'build/data/dockerignore'
+  path: '/opt/nodejs-runtime-builder/build/data/dockerignore'
+  permissions: '-rw-r--r--'
+  shouldExist: true

@@ -1,0 +1,45 @@
+{
+  "name": "nodejs-gen-dockerfile",
+  "description": "",
+  "license": "Apache-2.0",
+  "scripts": {
+    "check": "gts check",
+    "clean": "gts clean",
+    "precompile": "mkdir -p build/data && cp -Rf data/* build/data && cp package.json build",
+    "compile": "tsc -p .",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run check && npm run license-check",
+    "test": "mocha build/test/**/*.js",
+    "prestart": "npm run compile",
+    "prepublish": "npm run clean && npm run compile",
+    "start": "node build/src/main.js",
+    "license-check": "jsgl --local ."
+  },
+  "version": "0.0.1",
+  "devDependencies": {
+    "@types/argparse": "^1.0.30",
+    "@types/ejs": "^2.3.33",
+    "@types/extend": "^2.0.30",
+    "@types/js-yaml": "^3.5.29",
+    "@types/mocha": "^2.2.39",
+    "@types/node": "^7.0.5",
+    "@types/pify": "0.0.28",
+    "gts": "^0.5.4",
+    "js-green-licenses": "^0.2.0",
+    "mocha": "^2.5.3",
+    "source-map-support": "^0.4.11",
+    "tslint": "^5.2.0",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {
+    "@types/extend": "^2.0.30",
+    "argparse": "^1.0.9",
+    "ejs": "^2.5.6",
+    "extend": "^3.0.1",
+    "js-yaml": "^3.8.1",
+    "pify": "^2.3.0",
+    "shell-escape": "^0.2.0"
+  }
+}
