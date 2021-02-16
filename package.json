@@ -1,5 +1,14 @@
-...
-"scripts": {
-   "start": "NODE_ENV=production node index.js"
-  },
-...
+{
+    "name": "helloworld",
+    "version": "1.0.0",
+    "description": "my super cool hello world app",
+    "main": "app.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
