@@ -11,7 +11,7 @@ This image is based on Ubuntu 16.0.4 and includes [nodejs](https://nodejs.org) a
 
 For a more thorough walk through of getting started with Node.js on Google Cloud Platform, please see the [documentation and guides](https://cloud.google.com/nodejs).
 
-## App Engine
+## App Engine.
 
 To generate a Dockerfile that uses this image as a base, use the [`Cloud SDK`](https://cloud.google.com/sdk/gcloud/reference/beta/app/gen-config). From your existing Node.js application:
 ```bash
